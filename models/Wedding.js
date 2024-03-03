@@ -35,11 +35,9 @@ Wedding.init(
     },
     photographer: {
       type: DataTypes.BOOLEAN,
-      allowNull: true,
     },
     dj: {
       type: DataTypes.BOOLEAN,
-      allowNull: true,
     },
   },
   {

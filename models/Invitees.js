@@ -30,11 +30,9 @@ Invitees.init(
     },
     plus_one: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
     },
     accepted: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
     },
     food_choice: {
       type: DataTypes.ENUM({ values: ["Steak", "Chicken", "Vegetarian"] }),
