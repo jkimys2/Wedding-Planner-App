@@ -1,0 +1,42 @@
+[
+    {
+        "first_name": "Harry",
+        "last_name": "Potter",
+        "email": "harrypotter@gmail.com",
+        "plus_one": true,
+        "accepted": true,
+        "food_choice": "Chicken"
+    },
+    {
+        "first_name": "Ron",
+        "last_name": "Weasley",
+        "email": "ron.w@gmail.com",
+        "plus_one": true,
+        "accepted": true,
+        "food_choice": "Steak"
+    },
+    {
+        "first_name": "Luna",
+        "last_name": "Lovegood",
+        "email": "lunalove@yahoo.com",
+        "plus_one": false,
+        "accepted": true,
+        "food_choice": "Vegetarian"
+    },
+    {
+        "first_name": "Neville",
+        "last_name": "Longbottom",
+        "email": "n_long@gmail.com",
+        "plus_one": true,
+        "accepted": true,
+        "food_choice": "Chicken"
+    },
+    {
+        "first_name": "Fleur",
+        "last_name": "Delacour",
+        "email": "fleur.d@hotmail.com",
+        "plus_one": false,
+        "accepted": true,
+        "food_choice": "Vegetarian"
+    }
+]
