@@ -1,6 +1,6 @@
 // import files
 const router = require("express").Router();
-const { Wedding } = require("../../models/Wedding");
+const { Wedding } = require("../../models/");
 
 // create new wedding
 router.post("/", async (req, res) => {
