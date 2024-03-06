@@ -1,5 +1,8 @@
-<!-- MJS 3.4.24 - Orig from uri act 14-28 mp views/homepage.handlebars file. --> 
-<!-- Loop over each object in the posts array -->
+<!--  {{!-- MJS 3.4.24 - Orig from uri act 14-28 mp views/homepage.handlebars file. --}} -->
+<!--  {{!--  This is the proper way to comment .handlebars so that you can copy all to .html. --}} -->
+<!--  {{!--  only Using html comments leads to expressions being run! --}} -->
+<!-- Loop over each object in the weddings array -->
+<!-- Commented out lines with { {  helper_method WILL be excuted. Soab! -->  
 <div class="row mb-4 bg-dark text-light post"> MJS homepage2.handlebars file. </div> 
 {{#each weddings as |wedding| }}
 <div class="row m-3 p-1 postBorder post">  
@@ -16,12 +19,12 @@
     </h2>
       <!--  <p>     <span for="img" aria-label="money">💲</span> --> 
       <!-- Pass needed_funding value to the helper function -->
-      <!-- <span class="dollar-amount">{{format_amount post.needed_funding}}</span>     </p> -->    
-    <p class="smallFont">Created by {{wedding.user.username}}. To be wed on {{format_date wedding.date}}</p>
+    <p class="smallFont">Created by {{wedding.user.username}}. </p> 
+    <p> To be wed on {{!-- format_date wedding.date --}} </p>  
   </div> 
   <div class="col-md-12">
     <p>
-      {{post.contents}} 
+      Time: {{wedding.time}} 
     </p>
   </div>
 </div>  <!-- end post row --> 
