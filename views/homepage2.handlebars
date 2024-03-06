@@ -1,0 +1,28 @@
+<!-- MJS 3.4.24 - Orig from uri act 14-28 mp views/homepage.handlebars file. --> 
+<!-- Loop over each object in the posts array -->
+<div class="row mb-4 bg-dark text-light post"> MJS homepage2.handlebars file. </div> 
+{{#each weddings as |wedding| }}
+<div class="row m-3 p-1 postBorder post">  
+  <div class="col-md-9">
+    <h4> Wedding Name {{wedding.event_title}} 
+    </h4>
+  </div>
+
+  <div class="col-md-3">
+    <h2>
+      <!-- Call helper function with triple brackets to render the emoji span as HTML -->
+      <!-- {{{get_emoji}}} -->
+      <!-- <a href="/post/{{post.id}}">{{post.name}}</a> -->
+    </h2>
+      <!--  <p>     <span for="img" aria-label="money">💲</span> --> 
+      <!-- Pass needed_funding value to the helper function -->
+      <!-- <span class="dollar-amount">{{format_amount post.needed_funding}}</span>     </p> -->    
+    <p class="smallFont">Created by {{wedding.user.username}}. To be wed on {{format_date wedding.date}}</p>
+  </div> 
+  <div class="col-md-12">
+    <p>
+      {{post.contents}} 
+    </p>
+  </div>
+</div>  <!-- end post row --> 
+{{/each}}

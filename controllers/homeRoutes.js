@@ -1,32 +1,64 @@
+// MJS 3.5.24 - Orig code from MJS hw14 blogPost and uri act 14-28 mp. 
 const router = require('express').Router();
-const { Project, User } = require('../models');
+const { Wedding, User } = require('../models');
 // const withAuth = require('../utils/auth');
-
+ 
+// - / get returns all users and associated weddings.
 router.get('/', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
-    const projectData = await Project.findAll({
+    console.log("Route / in controllers/homeroutes.js beginning ... ");
+    // Get all weddings and JOIN with user data
+    const wedData = await Wedding.findAll({
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['username'],  // leave out the password!
         },
       ],
     });
 
     // Serialize data so the template can read it
-    const projects = projectData.map((project) => project.get({ plain: true }));
+    const weddings = wedData.map((wedding) => wedding.get({ plain: true }));
 
     // Pass serialized data and session flag into template
     res.render('homepage', { 
-      projects, 
+      weddings, 
       logged_in: req.session.logged_in 
     });
   } catch (err) {
     res.status(500).json(err);
   }
-});
+});  // end get / 
 
+// - /hp2 (homepage2) get returns all users and associated weddings.
+router.get('/hp2', async (req, res) => {
+  try {
+    console.log("Route / in controllers/homeroutes.js beginning ... ");
+    // Get all weddings and JOIN with user data
+    const wedData = await Wedding.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['username'],  // leave out the password!
+        },
+      ],
+    });
+
+    // Serialize data so the template can read it
+    const weddings = wedData.map((wedding) => wedding.get({ plain: true }));
+
+    // Pass serialized data and session flag into template
+    res.render('homepage2', { 
+      weddings, 
+      logged_in: req.session.logged_in 
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});  // end get /hp2 
+
+
+/* 
 router.get('/project/:id', async (req, res) => {
   try {
     const projectData = await Project.findByPk(req.params.id, {
@@ -68,6 +100,7 @@ router.get('/profile', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+*/ 
 
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
@@ -75,7 +108,6 @@ router.get('/login', (req, res) => {
     res.redirect('/profile');
     return;
   }
-
   res.render('login');
 });
 
