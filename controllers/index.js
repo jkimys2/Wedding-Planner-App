@@ -3,7 +3,7 @@ const router = require('express').Router();
 console.info("Starting to load controllers/index.js routes.");
 // const apiRoutes = require('./api');
 const homeRoutes = require('./homeRoutes');  // Uncommented 3.5.24 ... now the fun begins.
-
+ 
 router.use('/', homeRoutes);
 // router.use('/api', apiRoutes);
 

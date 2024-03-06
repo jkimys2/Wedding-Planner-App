@@ -2,7 +2,7 @@
 const router = require('express').Router();
 const { Wedding, User } = require('../models');
 // const withAuth = require('../utils/auth');
-
+ 
 // - / get returns all users and associated weddings.
 router.get('/', async (req, res) => {
   try {
