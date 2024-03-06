@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
   }
 });  // end get / 
 
-// - /hp2 get returns all users and associated weddings.
+// - /hp2 (homepage2) get returns all users and associated weddings.
 router.get('/hp2', async (req, res) => {
   try {
     console.log("Route / in controllers/homeroutes.js beginning ... ");
