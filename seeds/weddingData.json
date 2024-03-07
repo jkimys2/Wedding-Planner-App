@@ -12,13 +12,13 @@
     "date": "2024-10-26",  
     "time": "13:00:00", 
     "photographer": false, 
-    "dj": true
+    "dj": null
   },
   {
     "event_title": "CoupleC",
     "date": "2024-10-26", 
     "time": "14:00:00", 
-    "photographer": true, 
-    "dj": false
+    "photographer": null, 
+    "dj": null
   }
 ]
