@@ -1,0 +1,24 @@
+[
+  {
+    "event_title": "CoupleA Index0",
+    "date": "2024-10-26", 
+    "time": "12:00:00", 
+    "photographer": "true", 
+    "dj": true, 
+    "Note": "Either 'true' or true works. Display as 1 in mysql select"
+  },
+  {
+    "event_title": "CoupleB",
+    "date": "2024-10-26",  
+    "time": "13:00:00", 
+    "photographer": false, 
+    "dj": true
+  },
+  {
+    "event_title": "CoupleC",
+    "date": "2024-10-26", 
+    "time": "14:00:00", 
+    "photographer": true, 
+    "dj": false
+  }
+]
