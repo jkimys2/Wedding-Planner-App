@@ -20,14 +20,14 @@
         "last_name": "Lovegood",
         "email": "lunalove@yahoo.com",
         "plus_one": false,
-        "accepted": true,
+        "accepted": false,
         "food_choice": "Vegetarian"
     },
     {
         "first_name": "Neville",
         "last_name": "Longbottom",
         "email": "n_long@gmail.com",
-        "plus_one": true,
+        "plus_one": false,
         "accepted": true,
         "food_choice": "Chicken"
     },
@@ -35,8 +35,8 @@
         "first_name": "Fleur",
         "last_name": "Delacour",
         "email": "fleur.d@hotmail.com",
-        "plus_one": false,
-        "accepted": true,
+        "plus_one": null, 
+        "accepted": null,
         "food_choice": "Vegetarian"
     }
 ]
