@@ -21,7 +21,7 @@ const seedDatabase = async () => {
     console.log("Creating wedding ", count, " named ", wed.event_title);
     await Wedding.create({
       ...wed,
-      user_id: users[count].id,
+      user_id: users[(count+1)%wedData.length].id, // make user-wed ids different for testing.
     });
     count++;
   }
