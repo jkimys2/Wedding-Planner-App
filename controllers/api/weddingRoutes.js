@@ -6,10 +6,10 @@ const { Wedding } = require("../../models/");
 router.post("/", async (req, res) => {
   try {
     const newWedding = await Wedding.create({
-      event_title: req.session.event_title,
-      date: req.session.date,
-      time: req.session.time,
-      user_id: req.session.user_id,
+      event_title: req.body.event_title,
+      date: req.body.date,
+      time: req.body.time,
+      user_id: req.body.user_id,
     });
 
     res.status(200).json(newWedding);
@@ -23,10 +23,10 @@ router.put("/:id", async (req, res) => {
   try {
     const updatedWedding = await Wedding.update(
       {
-        event_title: req.session.event_title,
-        date: req.session.date,
-        time: req.session.time,
-        user_id: req.session.user_id,
+        event_title: req.body.event_title,
+        date: req.body.date,
+        time: req.body.time,
+        user_id: req.body.user_id,
       },
       {
         where: req.params.id,
@@ -55,7 +55,6 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 
 // export module
 module.exports = router;
