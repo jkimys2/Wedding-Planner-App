@@ -10,6 +10,10 @@ router.post("/", async (req, res) => {
       first_name: req.session.first_name,
       last_name: req.session.last_name,
       email: req.session.email,
+      plus_one: req.session.plus_one,
+      accepted: req.session.accepted,
+      food_choice: req.session.food_choice,
+      wedding_id: req.session.wedding_id,
     });
     res.status(200).json(newInvitee);
   } catch (err) {
@@ -29,6 +33,7 @@ router.put("/:id", async (req, res) => {
         plus_one: req.session.plus_one,
         accepted: req.session.accepted,
         food_choice: req.session.food_choice,
+        wedding_id: req.session.wedding_id,
       },
       {
         where: req.params.id,
