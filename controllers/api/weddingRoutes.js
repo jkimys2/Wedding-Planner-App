@@ -29,7 +29,7 @@ router.put("/:id", async (req, res) => {
         user_id: req.body.user_id,
       },
       {
-        where: req.params.id,
+        where: { id: req.params.id },
       }
     );
     if (!updatedWedding) {

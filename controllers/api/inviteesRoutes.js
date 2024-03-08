@@ -34,7 +34,7 @@ router.put("/:id", async (req, res) => {
         wedding_id: req.body.wedding_id,
       },
       {
-        where: req.params.id,
+        where: { id: req.params.id },
       }
     );
     if (!updatedInvitee) {
