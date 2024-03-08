@@ -36,7 +36,7 @@ Invitees.init(
     },
     food_choice: {
       type: DataTypes.ENUM({ values: ["Steak", "Chicken", "Vegetarian"] }),
-      allowNull: false,
+      allowNull: true,
     },
     wedding_id: {
       type: DataTypes.INTEGER,
