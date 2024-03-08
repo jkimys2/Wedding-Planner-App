@@ -1,7 +1,8 @@
 // MJS 3.5.24 - Orig code from MJS hw14 blogPost and uri act 14-28 mp. 
 const router = require('express').Router();
-const { Wedding, User } = require('../models');
-// const withAuth = require('../utils/auth');
+const { Wedding, User, Invitees } = require('../models');
+const withAuth = require('../utils/auth');
+const withAuth2 = require('../utils/auth2');
  
 // - / get returns all users and associated weddings.
 router.get('/', async (req, res) => {
@@ -33,7 +34,7 @@ router.get('/', async (req, res) => {
 // - /hp2 (homepage2) get returns all users and associated weddings.
 router.get('/hp2', async (req, res) => {
   try {
-    console.log("Route / in controllers/homeroutes.js beginning ... ");
+    console.log("Route /hp2 in controllers/homeroutes.js beginning ... ");
     // Get all weddings and JOIN with user data
     const wedData = await Wedding.findAll({
       include: [
@@ -80,35 +81,104 @@ router.get('/project/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
+*/
 
-// Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
+router.get('/profile2', withAuth2, async (req, res) => {
+  console.log("Starting route /profile2");
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+      include: [{ model: Wedding }],
+      // include: [{ model: Invitees }], // MJS 3.7.24 Wont work even once Invitees required.
     });
+    console.log("Got user data .... ");
+    console.log("User data. Name: ", userData.dataValues.username, " id: ", userData.dataValues.id);
 
     const user = userData.get({ plain: true });
 
-    res.render('profile', {
-      ...user,
+    console.log("Got user-wedding data .... ");
+    // Now get invitee data 
+    const wed = userData.dataValues.wedding; 
+    const wedTitle = wed.dataValues.event_title;
+    const wedID = wed.dataValues.id;
+    console.log("Wedding Title: ", wedTitle, " id: ", wedID);
+
+    const wedData = await Wedding.findByPk(wedID, {
+      include: [{ model: Invitees }],
+    });
+    // console.log("Wedding data ", wedData.dataValues);
+    const wedding = wedData.get({ plain: true});
+
+    res.render('profile2', {
+      ...user, ...wedding, 
       logged_in: true
     });
   } catch (err) {
+    console.log("Error getting /profile2 data");
+    res.status(500).json(err);
+  }
+}); 
+
+// Use withAuth middleware to prevent access to route
+router.get('/profile', withAuth, async (req, res) => {
+  console.log("Starting route /profile");
+  try {
+    // Find the logged in user based on the session ID
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Wedding }],
+      // include: [{ model: Invitees }], // MJS 3.7.24 Wont work even once Invitees required.
+    });
+    // console.log("User Data with wedding info is ", userData);
+    console.log("User data. Name: ", userData.dataValues.username, " id: ", userData.dataValues.id);
+    const wed = userData.dataValues.wedding; 
+    console.log("User data wedding is ", wed.dataValues);
+    const wedTitle = wed.dataValues.event_title;
+    const wedID = wed.dataValues.id;
+    console.log("Wedding Title: ", wedTitle, " id: ", wedID);
+
+    const user = userData.get({ plain: true });
+
+    // Now get the invitees based upon the wedding
+    console.log('Getting wedding data assoicated with pkey ', wedID); 
+    const wedData = await Wedding.findByPk(wedID, {
+      include: [{ model: Invitees }],
+    });
+    console.log("Wedding data ", wedData.dataValues);
+    const wedding = wedData.get({ plain: true});
+
+    res.render('profile', {
+      ...user, ...wedding, 
+      logged_in: true
+    });
+  } catch (err) {
+    console.log("Error in /profile route.");
     res.status(500).json(err);
   }
 });
-*/ 
+
 
 router.get('/login', (req, res) => {
+  console.log("Getting route /login ... ");
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
     res.redirect('/profile');
     return;
   }
+  console.log("User not logged in, rendering login page ...");
   res.render('login');
+});
+
+router.get('/login2', (req, res) => {
+  console.log("Getting route /login2 ... ");
+  // If the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+    res.redirect('/profile2');
+    return;
+  }
+  console.log("User not logged in, rendering login2 page ...");
+  res.render('login2');
 });
 
 module.exports = router;
