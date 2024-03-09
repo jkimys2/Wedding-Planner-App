@@ -96,24 +96,40 @@ router.get('/profile2', withAuth2, async (req, res) => {
     console.log("User data. Name: ", userData.dataValues.username, " id: ", userData.dataValues.id);
 
     const user = userData.get({ plain: true });
-
     console.log("Got user-wedding data .... ");
-    // Now get invitee data 
     const wed = userData.dataValues.wedding; 
-    const wedTitle = wed.dataValues.event_title;
-    const wedID = wed.dataValues.id;
-    console.log("Wedding Title: ", wedTitle, " id: ", wedID);
+    console.log("userData.dataValues is ", userData.dataValues, " wed is ", wed); 
 
-    const wedData = await Wedding.findByPk(wedID, {
-      include: [{ model: Invitees }],
-    });
-    // console.log("Wedding data ", wedData.dataValues);
-    const wedding = wedData.get({ plain: true});
+    if (wed === null) {
+      console.log("Wedding data is null => new user => go to wedding screen.");
+      // alert("Please enter new wedding data"); // doesn't work here
+      const wedData = {};
+      // console.log("Wedding data ", wedData.dataValues);
+      // gives "Error getting profile2 data" if wedData is null or {};
+      // const wedding = wedData.get({ plain: true}); 
+      // const wedding = {};
+      res.render('wedding2', {
+        ...user, 
+        logged_in: true
+      });
+    } else {
+        // Now get invitee data 
+        const wedTitle = wed.dataValues.event_title;
+        const wedID = wed.dataValues.id;
+        console.log("Wedding Title: ", wedTitle, " id: ", wedID);
 
-    res.render('profile2', {
-      ...user, ...wedding, 
-      logged_in: true
-    });
+        const wedData = await Wedding.findByPk(wedID, {
+          include: [{ model: Invitees }],
+        });
+        // console.log("Wedding data ", wedData.dataValues);
+        const wedding = wedData.get({ plain: true});
+
+        res.render('profile2', {
+          ...user, ...wedding, 
+          logged_in: true
+        });
+  } // end if-else
+  
   } catch (err) {
     console.log("Error getting /profile2 data");
     res.status(500).json(err);
