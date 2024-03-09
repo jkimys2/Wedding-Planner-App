@@ -2,7 +2,7 @@
 <!-- Show the user a form for a new post, along withcurrent posts at the bottom. --> 
 <div class="row">
   <div class="col-auto">
-    <h4>Welcome {{username}}!</h4>
+    <h4>Welcome {{username}}! {{id}} </h4> <!-- user.id no good --> 
   </div>
 </div>
 
@@ -13,7 +13,7 @@
     {{else}}
         <h3>Create a New Wedding:</h3>
     {{/if}}
-    <form class="form new-wedding-form">
+    <form class="form new-wedding-form" user-id="{{id}}" submit-verb="POST">
       <div class="form-group">
         <label for="wedding-name">Wedding Title (Couple Name):</label>
         <input class="form-input" type="text" id="wedding-name" name="wedding-name" />
@@ -27,16 +27,15 @@
         <textarea class="form-input" id="wedding-time" name="wedding-time"></textarea>
       </div>
 
-    {{#if weddings.length}}
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary" submit-type="PUT">Update</button>
-      </div>
-    {{else}}
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary" submit-type="POST">Create</button>
-      </div>
-    {{/if}}
+      <div class="form-group"></div>
+      {{#if weddings.length}} 
+      <!-- js cant acces submit-verb here, wether inside if or not. but can in form element. Arghhh --> 
+        <button type="submit" class="btn btn-primary" submit-verbxx="PUT"> Update </button>
+      {{else}}
+        <button type="submit" class="btn btn-primary" submit-verbxx="POST"> Create </button>
+      {{/if}}
 
+      </div>
     </form>
   </div>
 
@@ -54,6 +53,15 @@
     {{/each}}
   </div>
   {{/if}}
+
+  {{#if weddings.length}}
+     <!-- better to hide button - cant assign to it in .js file. --> 
+    <button class="btn btn-sm btn-danger">DELETE</button>
+  {{else}}  <!-- need btn for .js file for attaching on-click routine. --> 
+    <button class="btn btn-sm btn-danger" hidden="hidden">DELETE</button>
+  {{/if}}
+
+
 </div>
 
-<script src="./js/wedding.js"></script>
+<script src="./js/wedding2.js"></script>

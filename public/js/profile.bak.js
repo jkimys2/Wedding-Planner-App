@@ -7,12 +7,7 @@ const newFormHandler = async (event) => {
   const last_name = document.querySelector('#invitee-last').value.trim();
   const email = document.querySelector('#invitee-email').value.trim();
   // unincluded values accepted, plus_one, food_choice will be null  // now allows null => unknown
-  // const wedding_id = 2;
-  if (!event.target.hasAttribute('wedding-id')) { // must be in submit button. This is target
-    console.log("Profile new invitee FormHandler. Couldnt find wedding-id in DOM");
-    return; 
-  }  
-  const wedding_id = event.target.getAttribute('wedding-id'); 
+  const wedding_id = 2;
 
   if (first_name && last_name && email) {
     console.log("Invitee form handler. CREATING new GUEST ", first_name, last_name, email); 
@@ -24,13 +19,15 @@ const newFormHandler = async (event) => {
       method: 'POST',
       body: JSON.stringify({ first_name, last_name, email, wedding_id }),
       // body: JSON.stringify(jsonData),
-      headers: {'Content-Type': 'application/json',},
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     if (response.ok) {
       console.log("/api/invitee POST Response ok, new guest created ....... "); // shows in console
       alert("New invitee sucessfully created. "); // great to give them a msg as well. 
-      document.location.replace('/profile2');
+      document.location.replace('/profile');
     } else {
       alert('FAILED to create guest ' + first_name);
     }
@@ -40,7 +37,7 @@ const newFormHandler = async (event) => {
 };
 
 const delButtonHandler = async (event) => {
-    console.log("Profile2 delButtonHandler beginning ... ");
+    console.log("Profile delButtonHandler beginning ... ");
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');
         console.log("Profile2 delButtonHandler found data-id of ", id);
@@ -49,7 +46,7 @@ const delButtonHandler = async (event) => {
         });
 
         if (response.ok) {
-            document.location.replace('/profile2');
+            document.location.replace('/profile');
         } else {
             alert('Failed to delete project');
         }

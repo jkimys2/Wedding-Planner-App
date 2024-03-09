@@ -28,34 +28,47 @@ const newFormHandler = async (event) => {
   }
 
   console.log("Wedding2 new form handler. CREATING new wedding ", event_title, date, time); 
-  let jsonData = {"event_title": event_title, "date": date, "time": time, "user_id":user_id}; 
+  let jsonData = {"event_title": event_title, "date": date, "time": time};
+  jsonData.user_id = user_id; 
 
-  /* jsonData = 	{"event_title": "SB", "date": "10-26-1967", "time": "12:00:00", "user_id": 7 }; */
+  jsonData = 	{ 
+    "event_title": "SB",
+    "date": "10-26-1967",
+    "time": "12:00:00", 
+    "user_id": 4, 
+    "username": "Bob", 
+    "password": "ffffjjj", 
+    "first_name": "Us9",
+    "last_name": "WedID1",
+    "email": "us9@g.com",
+    "plus_one": false,
+    "accepted": false, 
+    "food_choice": null
+    }; 
   console.log("The wedding json object is: " + JSON.stringify(jsonData)); 
 
-  let response = null; // be sure to let here and non const below.
+  const response = null; 
   try {
-    console.log("CALLing /api/wedding:", submitVerb, ":route .............................");
-    // Be sure to trim as result from DOM seems to have spaces. Arggghhh. 
-    if (submitVerb.trim().toUpperCase() === 'POST') {
-      console.log("Calling POST fetch ....."); 
-      // Be sure not to redeclare response, and that it was defined with let above!
-      response = await fetch("/api/wedding", {
-        method: "POST",  // submit-verb POST 
-        // body: JSON.stringify({ event_title, date, time, user_id }),
-        body: JSON.stringify(jsonData),
-        headers: {'Content-Type': 'application/json',}, // be sure to have both command and opening brackets!!
-      });  // end fetch   */
-    } else if (submitVerb.trim().toUpperCase() === 'PUT') {
+    console.log("Calling /api/wedding ", submitVerb, " route .............................");
+    // if (submitType === 'POST') {
+    // It seems that the const is 100% MANDATORY in the following line. Cant be decleared above. INCREDIBLY poor. 
+    /* const response = await fetch("/api/wedding", {
+      method: 'POST',
+      // body: JSON.stringify({ first_name, last_name, email, wedding_id }),
+      body: JSON.stringify(jsonData),
+      headers: {'Content-Type': 'application/json',},
+    }); */
 
-    } else { 
-      console.log("Create new wedding: Unexpected submitVerg: ", submitVerb); 
-    } // end if-else submitVerb
+    const response = await fetch("/api/wedding", {
+          method: "POST",  // submit-verb POST 
+          // body: JSON.stringify({ event_title, date, time, user_id }),
+          body: JSON.stringify(jsonData),
+          headers: {'Content-Type': 'application/json',}, // be sure to have both command and opening brackets!!
+        });  // end if (submitType is post), 
+    // }  */
     console.log("Wedding new form post feteched okay. "); 
-    if (response === null) {
-      console.log("Create new wedding: response is null");
-    }
-    else if (response.ok) {
+
+    if (response.ok) {
       console.log("/api/wedding POST Response ok, new wedding created ....... "); // shows in console
       alert("New wedding sucessfully created. "); // great to give them a msg as well. 
       document.location.replace('/profile2');

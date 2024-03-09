@@ -1,16 +1,16 @@
 <!-- MJS 3.7 - Modified from MJS hw 14 - orig uri act 14-28 mp. --> 
 <!-- Show the user the current wedding, a form for a new invitee, and invitees. --> 
 <div class="row">
-  <div class="col-auto">
-    <h2>Welcome, {{username}}. ... need to add Wedding info near here likely above the new invitee form!</h2>
-    <h2>Wedding Name {{wedding.event_title}} Date .... Time .... </h2>
+  <div class="col-auto"> <!-- neither user.id nor user.id works below. -->
+    <h2>Welcome, {{username}}  ID: {{id}} ... add Wedding info likely above the new invitee form!</h2>
+    <h2>Wedding Name {{wedding.event_title}} ID: {{wedding.id}} Date .... Time .... </h2>
   </div>
 </div>
 
 <div class="row mt-4">
   <div class="col-md-6">
     <h3>Create a New Invitee:</h3>
-    <form class="form new-invitee-form">
+    <form class="form new-invitee-form" user-id="{{id}}" wedding-id="{{wedding.id}}">  <!-- data-id="{{post.id}}" -->
       <div class="form-group">
         <label for="invitee-name">First Name:</label>
         <input class="form-input" type="text" id="invitee-name" name="invitee-name" />
@@ -24,7 +24,7 @@
         <textarea class="form-input" id="invitee-email" name="invitee-email"></textarea>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary" >Create</button>
       </div>
     </form>
   </div>
