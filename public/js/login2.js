@@ -1,7 +1,7 @@
 // MJS 3.5.24 - Copied from uri act 14-28 mp.  Should not need any changes.
 const loginFormHandler = async (event) => {
   console.log("login2 Form public/js Handler beginning ...");
-  event.preventDefault();
+  event.preventDefault(); 
 
   // Collect values from the login form
   const email = document.querySelector('#email-login').value.trim();

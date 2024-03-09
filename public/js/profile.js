@@ -6,8 +6,7 @@ const newFormHandler = async (event) => {
   const first_name = document.querySelector('#invitee-name').value.trim();
   const last_name = document.querySelector('#invitee-last').value.trim();
   const email = document.querySelector('#invitee-email').value.trim();
-  // unincluded values accepted, plus_one, food_choice will be null  // now allows null => unknown
-  // const wedding_id = 2;
+  // Unincluded values: accepted, plus_one, food_choice will be null  // model as of 3.7.24 allows null => unknown
   if (!event.target.hasAttribute('wedding-id')) { // must be in submit button. This is target
     console.log("Profile new invitee FormHandler. Couldnt find wedding-id in DOM");
     return; 
@@ -30,7 +29,7 @@ const newFormHandler = async (event) => {
     if (response.ok) {
       console.log("/api/invitee POST Response ok, new guest created ....... "); // shows in console
       alert("New invitee sucessfully created. "); // great to give them a msg as well. 
-      document.location.replace('/profile2');
+      document.location.replace('/profile');
     } else {
       alert('FAILED to create guest ' + first_name);
     }
@@ -40,18 +39,18 @@ const newFormHandler = async (event) => {
 };
 
 const delButtonHandler = async (event) => {
-    console.log("Profile2 delButtonHandler beginning ... ");
+    console.log("Delete guest ButtonHandler beginning ... ");
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');
-        console.log("Profile2 delButtonHandler found data-id of ", id);
+        console.log("Profile delButtonHandler found data-id of ", id);
         const response = await fetch(`/api/invitees/${id}`, {
             method: 'DELETE',
         });
 
         if (response.ok) {
-            document.location.replace('/profile2');
+            document.location.replace('/profile');
         } else {
-            alert('Failed to delete project');
+            alert('Failed to delete guest');
         }
     }
 };
