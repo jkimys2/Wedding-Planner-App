@@ -8,7 +8,7 @@ const loginFormHandler = async (event) => {
   const password = document.querySelector('#password-login').value.trim();
 
   if (email && password) {
-    console.log("login Form public/js Handler found email and password ...");
+    console.log("Login2 form public/js Handler found email and password ...");
     // Send a POST request to the API endpoint
     const response = await fetch('/api/users/login', {
       method: 'POST',
@@ -30,23 +30,29 @@ const loginFormHandler = async (event) => {
 
 const signupFormHandler = async (event) => {
   event.preventDefault();
-  console.log("Sign-Up Form Handler beginning ...");
+  console.log("Sign-Up2 Form Handler beginning ...");
 
-  const name = document.querySelector('#name-signup').value.trim();
+  // Note change from name to username, because the nodels name changed.
+  const username = document.querySelector('#name-signup').value.trim();
   const email = document.querySelector('#email-signup').value.trim();
   const password = document.querySelector('#password-signup').value.trim();
 
-  if (name && email && password) {
+  if (username && email && password) {
+    console.log("SignupFormHandler2 calling /api/users POST ", username, " ", email, " ", password);
     const response = await fetch('/api/users', {
       method: 'POST',
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ email, username, password }),
       headers: { 'Content-Type': 'application/json' },
-    });
+    /* const response = await fetch('/api/users', {
+      method: 'POST',
+      body: JSON.stringify({ email, username, password }),
+      headers: { 'Content-Type': 'application/json' }, */
+    }); 
 
     if (response.ok) {
       document.location.replace('/profile2');
     } else {
-      alert(response.statusText);
+      alert("Could not create new user. " + response.statusText);
     }
   }
 };
