@@ -7,7 +7,12 @@ const newFormHandler = async (event) => {
   const last_name = document.querySelector('#invitee-last').value.trim();
   const email = document.querySelector('#invitee-email').value.trim();
   // unincluded values accepted, plus_one, food_choice will be null  // now allows null => unknown
-  const wedding_id = 2;
+  // const wedding_id = 2;
+  if (!event.target.hasAttribute('wedding-id')) { // must be in submit button. This is target
+    console.log("Profile new invitee FormHandler. Couldnt find wedding-id in DOM");
+    return; 
+  }  
+  const wedding_id = event.target.getAttribute('wedding-id'); 
 
   if (first_name && last_name && email) {
     console.log("Invitee form handler. CREATING new GUEST ", first_name, last_name, email); 
@@ -19,9 +24,7 @@ const newFormHandler = async (event) => {
       method: 'POST',
       body: JSON.stringify({ first_name, last_name, email, wedding_id }),
       // body: JSON.stringify(jsonData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: {'Content-Type': 'application/json',},
     });
 
     if (response.ok) {
