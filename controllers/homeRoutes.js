@@ -58,33 +58,12 @@ router.get('/hp2', async (req, res) => {
   }
 });  // end get /hp2 
 
-
-/* 
-router.get('/project/:id', async (req, res) => {
-  try {
-    const projectData = await Project.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
-
-    const project = projectData.get({ plain: true });
-
-    res.render('project', {
-      ...project,
-      logged_in: req.session.logged_in
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-*/
-
-router.get('/profile2', withAuth2, async (req, res) => {
-  console.log("Starting route /profile2");
+// /invitee/7 type routes. Return users, weds and guests. MJS 3.9.24
+router.get('/invitee/:id', async (req, res) => {
+  const routeName = "/invitee/:id";
+  const weddingRender = "wedding";
+  const mainRender = "invitee"; 
+  console.log("Starting GET route ", routeName, " no wed data => ", weddingRender, " else render ", mainRender); 
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
@@ -92,28 +71,25 @@ router.get('/profile2', withAuth2, async (req, res) => {
       include: [{ model: Wedding }],
       // include: [{ model: Invitees }], // MJS 3.7.24 Wont work even once Invitees required.
     });
-    console.log("Got user data .... ");
-    console.log("User data. Name: ", userData.dataValues.username, " id: ", userData.dataValues.id);
-
+    console.log("Got user data .... Name: ", userData.dataValues.username, " id: ", userData.dataValues.id);
     const user = userData.get({ plain: true });
-    console.log("Got user-wedding data .... ");
-    const wed = userData.dataValues.wedding; 
-    console.log("userData.dataValues is ", userData.dataValues, " wed is ", wed); 
 
+    // if weddding is null, force user to wedding screen. 
+    const wed = userData.dataValues.wedding; 
     if (wed === null) {
       console.log("Wedding data is null => new user => go to wedding screen.");
       // alert("Please enter new wedding data"); // doesn't work here
       const wedData = {};
-      // console.log("Wedding data ", wedData.dataValues);
-      // gives "Error getting profile2 data" if wedData is null or {};
+      // Following gives "Error getting profile2 data" if wedData is null or {};
       // const wedding = wedData.get({ plain: true}); 
-      // const wedding = {};
-      res.render('wedding2', {
-        ...user, 
-        logged_in: true
-      });
-    } else {
-        // Now get invitee data 
+      // just leave out wedding since no data exists!
+      res.render(weddingRender, {...user, logged_in: true } );
+      return; // un-reachable, but just in case
+    }
+  
+    console.log("Route ", routeName, " got wedding data ", wed.dataValues); 
+
+      // Now get wedding-invitee data  
         const wedTitle = wed.dataValues.event_title;
         const wedID = wed.dataValues.id;
         console.log("Wedding Title: ", wedTitle, " id: ", wedID);
@@ -121,24 +97,22 @@ router.get('/profile2', withAuth2, async (req, res) => {
         const wedData = await Wedding.findByPk(wedID, {
           include: [{ model: Invitees }],
         });
-        // console.log("Wedding data ", wedData.dataValues);
         const wedding = wedData.get({ plain: true});
-
-        res.render('profile2', {
-          ...user, ...wedding, 
-          logged_in: true
-        });
-  } // end if-else
+        res.render(mainRender, {...user, ...wedding, logged_in: true});
   
   } catch (err) {
-    console.log("Error getting /profile2 data");
+    console.log("Error in Route ", routeName, " while getting user-wedding-invitee data");
     res.status(500).json(err);
-  }
-}); 
+  } // end try-catch
+});  // end Route GET /invitee/:id 
 
-// Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
-  console.log("Starting route /profile");
+// /invitee2/7 type routes.  MJS 3.9.24
+router.get('/invitee2/:id', async (req, res) => {
+  const guestID = req.params['id'];
+  const routeName = "/invitee2/:id " + guestID;
+  const weddingRender = "wedding2";
+  const mainRender = "invitee2"; 
+  console.log("Starting GET route ", routeName, " If no wed data => ", weddingRender, " else => ", mainRender); 
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
@@ -146,33 +120,142 @@ router.get('/profile', withAuth, async (req, res) => {
       include: [{ model: Wedding }],
       // include: [{ model: Invitees }], // MJS 3.7.24 Wont work even once Invitees required.
     });
-    // console.log("User Data with wedding info is ", userData);
-    console.log("User data. Name: ", userData.dataValues.username, " id: ", userData.dataValues.id);
-    const wed = userData.dataValues.wedding; 
-    console.log("User data wedding is ", wed.dataValues);
-    const wedTitle = wed.dataValues.event_title;
-    const wedID = wed.dataValues.id;
-    console.log("Wedding Title: ", wedTitle, " id: ", wedID);
-
+    console.log("Got user data .... Name: ", userData.dataValues.username, " id: ", userData.dataValues.id);
     const user = userData.get({ plain: true });
 
-    // Now get the invitees based upon the wedding
-    console.log('Getting wedding data assoicated with pkey ', wedID); 
-    const wedData = await Wedding.findByPk(wedID, {
-      include: [{ model: Invitees }],
-    });
-    console.log("Wedding data ", wedData.dataValues);
-    const wedding = wedData.get({ plain: true});
+    // if weddding is null, force user to wedding screen. 
+    const wed = userData.dataValues.wedding; 
+    if (wed === null) {
+      console.log("Wedding data is null => new user => go to wedding screen.");
+      // alert("Please enter new wedding data"); // doesn't work here
+      const wedData = {};
+      // Following gives "Error getting profile2 data" if wedData is null or {};
+      // const wedding = wedData.get({ plain: true}); 
+      // just leave out wedding since no data exists!
+      res.render(weddingRender, {...user, logged_in: true } );
+      return; // un-reachable, but just in case
+    }
+  
+    console.log("Route ", routeName, " got wedding data ", wed.dataValues); 
 
-    res.render('profile', {
-      ...user, ...wedding, 
-      logged_in: true
-    });
+      // Now get wedding-invitee data 
+        const wedTitle = wed.dataValues.event_title;
+        const wedID = wed.dataValues.id;
+        console.log("Wedding Title: ", wedTitle, " id: ", wedID);
+
+        const wedData = await Wedding.findByPk(wedID, {
+          include: [{ model: Invitees }],
+        });
+        const wedding = wedData.get({ plain: true});
+
+        const guestData = await Invitees.findByPk(guestID, {        });
+        const guest = guestData.get({ plain: true});
+
+        res.render(mainRender, {...user, ...wedding, logged_in: true, "guestID": guestID, "guest": guest });
+  
   } catch (err) {
-    console.log("Error in /profile route.");
+    console.log("Error in Route ", routeName, " while getting user-wedding-invitee data");
     res.status(500).json(err);
-  }
-});
+  } // end try-catch
+});  // end Route GET /invitee2/:id
+
+// Route /profile displays user, wed and invitees data. MJS 3.6.24
+router.get('/profile2', withAuth2, async (req, res) => {
+  const routeName = "/profile2";
+  const weddingRender = "wedding2";
+  const mainRender = "profile2"; 
+  console.log("Starting GET route ", routeName, " no wed data => ", weddingRender, " else render ", mainRender); 
+  try {
+    // Find the logged in user based on the session ID
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Wedding }],
+      // include: [{ model: Invitees }], // MJS 3.7.24 Wont work even once Invitees required.
+    });
+    console.log("Got user data .... Name: ", userData.dataValues.username, " id: ", userData.dataValues.id);
+    const user = userData.get({ plain: true });
+
+    // if weddding is null, force user to wedding screen. 
+    const wed = userData.dataValues.wedding; 
+    if (wed === null) {
+      console.log("Wedding data is null => new user => go to wedding screen.");
+      // alert("Please enter new wedding data"); // doesn't work here
+      const wedData = {};
+      // Following gives "Error getting profile2 data" if wedData is null or {};
+      // const wedding = wedData.get({ plain: true}); 
+       // just leave out wedding since no data exists!
+       res.render(weddingRender, {...user, logged_in: true } );
+       return; // un-reachable, but just in case
+    }
+  
+    console.log("Route ", routeName, " got wedding data ", wed.dataValues); 
+
+      // Now get wedding-invitee data 
+        const wedTitle = wed.dataValues.event_title;
+        const wedID = wed.dataValues.id;
+        console.log("Wedding Title: ", wedTitle, " id: ", wedID);
+
+        const wedData = await Wedding.findByPk(wedID, {
+          include: [{ model: Invitees }],
+        });
+        const wedding = wedData.get({ plain: true});
+
+        res.render(mainRender, {...user, ...wedding, logged_in: true});
+  
+  } catch (err) {
+    console.log("Error in Route ", routeName, " while getting user-wedding-invitee data");
+    res.status(500).json(err);
+  } // end try-catch
+});  // end GET /profile2
+
+// MJS 3.4.24 - GET profile - shows user, wedding and list of invitees. 
+// Use withAuth middleware to prevent access to route
+router.get('/profile', withAuth, async (req, res) => {
+  const routeName = "/profile";
+  const weddingRender = "wedding";
+  const mainRender = "profile"; 
+  console.log("Starting GET route ", routeName, " no wed data => ", weddingRender, " else render ", mainRender); 
+  try {
+    // Find the logged in user based on the session ID
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Wedding }],
+      // include: [{ model: Invitees }], // MJS 3.7.24 Wont work even once Invitees required.
+    });
+    console.log("Got user data .... Name: ", userData.dataValues.username, " id: ", userData.dataValues.id);
+    const user = userData.get({ plain: true });
+
+    // if weddding is null, force user to wedding screen. 
+    const wed = userData.dataValues.wedding; 
+    if (wed === null) {
+      console.log("Wedding data is null => new user => go to wedding screen.");
+      // alert("Please enter new wedding data"); // doesn't work here
+      const wedData = {};
+      // Following gives "Error getting profile2 data" if wedData is null or {};
+      // const wedding = wedData.get({ plain: true}); 
+      // just leave out wedding since no data exists!
+      res.render(weddingRender, {...user, logged_in: true } );
+      return; // un-reachable, but just in case
+    }
+  
+    console.log("Route ", routeName, " got wedding data ", wed.dataValues); 
+
+      // Now get wedding-invitee data 
+        const wedTitle = wed.dataValues.event_title;
+        const wedID = wed.dataValues.id;
+        console.log("Wedding Title: ", wedTitle, " id: ", wedID);
+
+        const wedData = await Wedding.findByPk(wedID, {
+          include: [{ model: Invitees }],
+        });
+        const wedding = wedData.get({ plain: true});
+        res.render(mainRender, {...user, ...wedding, logged_in: true});
+  
+  } catch (err) {
+    console.log("Error in Route ", routeName, " while getting user-wedding-invitee data");
+    res.status(500).json(err);
+  } // end try-catch
+});  // end GET /profile
 
 
 router.get('/login', (req, res) => {
