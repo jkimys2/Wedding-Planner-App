@@ -1,0 +1,73 @@
+<!-- MJS 3.7 - Modified from MJS hw 14 - orig uri act 14-28 mp. --> 
+<!-- Show the user the current wedding, a form for a new invitee, and invitees. --> 
+<div class="row">
+  <div class="col-auto"> <!-- neither user.id nor user.id works below. -->
+    <h2>Welcome {{username}}  ID: {{id}} </h2>
+    <h2>Wedding Name {{wedding.event_title}} ID: {{wedding.id}} Date .... Time .... </h2>
+    <h2>Wedding Title via weddings[1] {{weddings.[1].event_title }} ID: {{wedding.id}}  </h2>
+    <h2>Guest Name via guest {{guest.first_name}} ID: {{guest.id}}  </h2>
+  </div>
+</div>
+
+
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h3>Modify Invitee: {{guestID}} </h3>
+    <h3>Invitee 1: {{ invitees.[1].first_name }}</h3>
+    <h3>Current Invitee: {{guest.first_name}} {{! invitees.[guestID].first_name }}</h3>
+
+    <form class="form new-invitee-form" user-id="{{id}}" wedding-id="{{wedding.id}}">  <!-- data-id="{{post.id}}" -->
+      <div class="form-group">
+        <label for="invitee-name">First Name:</label>
+        <input class="form-input" type="text" id="invitee-name" name="invitee-name" />
+      </div>
+      <div class="form-group">
+        <label for="invitee-last">Last Name:</label>
+        <input class="form-input" type="text" id="invitee-last" name="invitee-last" />
+      </div>
+      <div class="form-group">
+        <label for="invitee-email">Email:</label> <!-- can use textarea instead of input --> 
+        <input class="form-input" id="invitee-email" name="invitee-email"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="invitee-attending">Attending:</label>
+        <input textarea class="form-input" id="invitee-attending" name="invitee-attending"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="invitee-plus-one">Email:</label>
+        <input class="form-input" id="invitee-plus-one" name="invitee-plus-one"></textarea>
+      </div> 
+      <div class="form-group">
+        <label for="invitee-food-choice">Email:</label>
+        <input class="form-input" id="nvitee-food-choice" name="invitee-food-choice"></textarea>
+      </div>  --> 
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" >Create</button
+      </div> 
+    </form>
+  </div>
+
+  {{#if invitees.length}}
+  <div class="col-md-6 invitee-list">
+    <h3>Current Invitees:</h3>
+
+    {{#each invitees as |invitee|}}
+    <div class="row mb-2">
+      <div class="col-md-8">
+        <h4><a href="/invitee/{{invitee.id}}">{{invitee.first_name}} {{invitee.last_name}}</a></h4>
+      </div>
+      <div class="col-md-4">
+        <h4><a href="/invitee/{{invitee.id}}">Edit</a></h4>
+        <button class="btn btn-sm btn-info" data-id="{{invitee.id}}">Edit</button>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-sm btn-danger" data-id="{{invitee.id}}">DELETE</button>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+</div>
+
+<script src="./js/invitee2.js"></script>
