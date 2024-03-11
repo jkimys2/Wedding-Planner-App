@@ -1,27 +1,28 @@
 // MJS 3.5.24 - Copied from uri act 14-28 mp.  Should not need any changes.
 const loginFormHandler = async (event) => {
-  console.log("login Form public/js Handler beginning ...");
-  event.preventDefault();
+  console.log("login2 Form public/js Handler beginning ...");
+  event.preventDefault(); 
 
   // Collect values from the login form
-  const email = document.querySelector('#exampleInputEmail1').value.trim();
-  const password = document.querySelector('#exampleInputPassword1').value.trim();
+  const email = document.querySelector('#email-login').value.trim();
+  const password = document.querySelector('#password-login').value.trim();
 
   if (email && password) {
-    console.log("login Form public/js Handler found email and password ...");
+    console.log("Login2 form public/js Handler found email and password ...");
     // Send a POST request to the API endpoint
     const response = await fetch('/api/users/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
     });
-    console.log("Login Form handler got post response ...", response.status);
+    console.log("Login2 Form handler got post response ...", response.status);
 
     if (response.ok) {
       // If successful, redirect the browser to the profile page
-      console.log("login form handler got response.ok ... going to profile page");
-      document.location.replace('/profile');
+      console.log("Login2 form handler got response.ok ... going to profile2 page");
+      document.location.replace('/profile2');
     } else {
+      response.statusText = 'Incorrect username or password'; 
       alert(response.statusText);
     }
   }
@@ -29,25 +30,29 @@ const loginFormHandler = async (event) => {
 
 const signupFormHandler = async (event) => {
   event.preventDefault();
-  console.log("Sign-Up Form Handler beginning ...");
+  console.log("Sign-Up2 Form Handler beginning ...");
 
-  const name = document.querySelector('.inpt');
-  console.log(name);
-  const email = document.querySelector('#emailsinput');
-  console.log("email input");
-  const password = document.querySelector('#exampleInputPassword1 passwordsinput');
-console.log("attempting fetch");
-  if (name && email && password) {
+  // Note change from name to username, because the nodels name changed.
+  const username = document.querySelector('#name-signup').value.trim();
+  const email = document.querySelector('#email-signup').value.trim();
+  const password = document.querySelector('#password-signup').value.trim();
+
+  if (username && email && password) {
+    console.log("SignupFormHandler2 calling /api/users POST ", username, " ", email, " ", password);
     const response = await fetch('/api/users', {
       method: 'POST',
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ email, username, password }),
       headers: { 'Content-Type': 'application/json' },
-    });
-console.log("made it here?");
+    /* const response = await fetch('/api/users', {
+      method: 'POST',
+      body: JSON.stringify({ email, username, password }),
+      headers: { 'Content-Type': 'application/json' }, */
+    }); 
+
     if (response.ok) {
-      document.location.replace('/profile');
+      document.location.replace('/profile2');
     } else {
-      alert(response.statusText);
+      alert("Could not create new user. " + response.statusText);
     }
   }
 };

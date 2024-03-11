@@ -2,115 +2,81 @@
 <!-- Show the user the current wedding, a form for a new invitee, and invitees. -->
 <div class="card-group">
   <div class="card">
-    <img src="..." class="card-img-top" alt="...">
+    <img src="/images/recentlyMarriedCoupleKissing.jpg" class="card-img-top" alt="married couple kissing">
     <div class="card-body">
       <h5 class="card-title">Venues</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+      <p class="card-text">Choose from amazing all over the country where we can help you make your dreams come true.
+
+        Could be in the beautiful ocean front venues in South Florida, on the incredible island of Hawaii or in the breathtaking snow capped mountains of Colorado!
+      </p>
+      <p class="card-text"><small class="text-body-secondary">Florida, Hawaii, Colorado</small></p>
     </div>
   </div>
   <div class="card">
-    <img src="..." class="card-img-top" alt="...">
+    <img src="/images/jordansRings.jpg" class="card-img-top" alt="Picture of wedding rings">
     <div class="card-body">
       <h5 class="card-title">Photographers</h5>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+      <p class="card-text">We will help you find only the best of professional photographers!
+
+        They will be who you know you can trust that way you can focus more on enjoying your beautiful day! 
+      </p>
+      <p class="card-text"><small class="text-body-secondary">Browse professionals near you now</small></p>
     </div>
   </div>
   <div class="card">
-    <img src="..." class="card-img-top" alt="...">
+    <img src="/images/qrcode.png" class="card-img-top" alt="qr code to invite guests">
     <div class="card-body">
-      <h5 class="card-title">Caterers</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-      <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+      <h5 class="card-title">Invite guests using our special QR Code technology</h5>
+      <p class="card-text">Perform this task and invite your friends and family to the wedding!</p>
+      <p class="card-text"><small class="text-body-secondary"></small>Special invite for a special occasion</p>
     </div>
   </div>
 </div>
 
 
+<div class="row">
+  <div class="col-auto">
+    <h2 id="welcome">Welcome,
+      {{username}}
+    </h2>
+    <h2 class="eventTitle">Wedding Name, {{wedding.event_title}}, current date 3/11/2024, </h2>
+  </div>
+</div>
 
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h3>Create a New Invitee:</h3>
+    <form class="form new-project-form">
+      <div class="form-group">
+        <label for="project-name" id="invname">Invitee Name:</label>
+        <input class="form-input" type="text" id="project-name" name="project-name" />
+      </div>
+    </form>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label"></label>
+    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter email of Invitee">
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Special invite note</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+  <div class="sendInvitebtn">Create user and Send Invite</div>
+  {{#if invitees.length}}
+  <div class="col-md-6 project-list">
+    <h3>Current Invitees:</h3>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{!-- <div class="row"> --}}
-  {{!-- <div class="col-auto"> --}}
-    {{!-- <h2>Welcome, --}}
-      {{!-- {{username}} --}}
-      {{!-- .Cody you need to add Wedding info near here likely above the new invitee --}}
-      {{!-- form!</h2> --}}
-    {{!-- <h2>Wedding Name {{wedding.event_title}} Date .... Time .... </h2> --}}
-  {{!-- </div> --}}
-{{!-- </div> --}}
-{{!--  --}}
-{{!-- <div class="row mt-4"> --}}
-  {{!-- <div class="col-md-6"> --}}
-    {{!-- <h3>Create a New Invitee:</h3> --}}
-    {{!-- <form class="form new-project-form"> --}}
-      {{!-- <div class="form-group"> --}}
-        {{!-- <label for="project-name">Invitee Name:</label> --}}
-        {{!-- <input --}}
-          {{!-- class="form-input" --}}
-          {{!-- type="text" --}}
-          {{!-- id="project-name" --}}
-          {{!-- name="project-name" --}}
-        {{!-- /> --}}
-      {{!-- </div> --}}
-      {{!-- <div class="form-group"> --}}
-        {{!-- <label for="project-desc">Other Stuff??:</label> --}}
-        {{!-- <textarea --}}
-          {{!-- class="form-input" --}}
-          {{!-- id="project-desc" --}}
-          {{!-- name="project-desc" --}}
-        {{!-- ></textarea> --}}
-      {{!-- </div> --}}
-      {{!-- <div class="form-group"> --}}
-        {{!-- <button type="submit" class="btn btn-primary">Create</button> --}}
-      {{!-- </div> --}}
-    {{!-- </form> --}}
-    {{!-- <br> --}}
-    {{!-- <img src="../images/qrcode.png" width="250" height="250" class="rounded d-block" alt="qrcode invitation"> --}}
-  {{!-- </div> --}}
-{{!--  --}}
-{{!--  --}}
-  {{!-- {{#if invitees.length}} --}}
-    {{!-- <div class="col-md-6 project-list"> --}}
-      {{!-- <h3>Current Invitees:</h3> --}}
-{{!--  --}}
-      {{!-- {{#each invitees as |invitee|}} --}}
-        {{!-- <div class="row mb-2"> --}}
-          {{!-- <div class="col-md-8"> --}}
-            {{!-- <h4><a --}}
-                {{!-- href="/project/{{invitee.id}}" --}}
-              {{!-- >{{invitee.first_name}}</a></h4> --}}
-          {{!-- </div> --}}
-          {{!-- <div class="col-md-4"> --}}
-            {{!-- <button --}}
-              {{!-- class="btn btn-sm btn-danger" --}}
-              {{!-- data-id="{{invitee.id}}" --}}
-            {{!-- >DELETE</button> --}}
-          {{!-- </div> --}}
-        {{!-- </div> --}}
-      {{!-- {{/each}} --}}
-    {{!-- </div> --}}
-  {{!-- {{/if}} --}}
-{{!-- </div> --}}
-{{!--  --}}
-{{!-- <script src="./js/profile.js"></script> --}}
+    {{#each invitees as |invitee|}}
+    <div class="row mb-2">
+      <div class="col-md-8">
+        <h4><a href="/project/{{invitee.id}}">{{invitee.first_name}}</a></h4>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-sm btn-danger" data-id="{{invitee.id}}">DELETE</button>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+</div>
+<script src="./js/profile.js"></script>
