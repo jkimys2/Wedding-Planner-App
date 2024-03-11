@@ -5,7 +5,7 @@ const newFormHandler = async (event) => {
   /* I'm sticking with the exact same names as the model to be safe here. */
   const first_name = document.querySelector('#invitee-name').value.trim();
   const last_name = document.querySelector('#invitee-last').value.trim();
-  const email = document.querySelector('#invitee-email').value.trim();
+  const email = document.querySelector('#exampleFormControlInput1').value.trim();
   // Unincluded values: accepted, plus_one, food_choice will be null  // model as of 3.7.24 allows null => unknown
   if (!event.target.hasAttribute('wedding-id')) { // must be in submit button. This is target
     console.log("Profile new invitee FormHandler. Couldnt find wedding-id in DOM");
@@ -56,7 +56,7 @@ const delButtonHandler = async (event) => {
 };
 
 document
-  .querySelector('.new-invitee-form')
+  .querySelector('.sendInvitebtn')
   .addEventListener('submit', newFormHandler);
 
 document
