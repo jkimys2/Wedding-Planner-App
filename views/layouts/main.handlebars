@@ -28,19 +28,24 @@
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/hp2">Mikes Home</a>
+                        <a class="nav-link" href="/profile"> Dashboard </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/profile">/profile</a>
+                        {{#if logged_in}}
+                            <button class="no-button" id="logout">Logout</button>
+                            <!-- <a class="nav-link" href="/logout"> Logout </a> DONT work -->
+                        {{else}}
+                            <a class="nav-link" href="/login">Login </a>
+                        {{/if}}
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/profile2">Mikes dash</a>
+                        <a class="nav-link" href="/hp2"> Test Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
+                        <a class="nav-link" href="/profile2"> Test Dash</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login2">Login or Sign up</a>
+                        <a class="nav-link" href="/login2"> Test Login </a>
                     </li>
                 </ul>
             </div>
@@ -51,7 +56,7 @@
 </body>
 
 {{#if logged_in}}
-<script src="/js/logout.js"></script>
+    <script src="/js/logout.js"></script>
 {{/if}}
 
 </html>
