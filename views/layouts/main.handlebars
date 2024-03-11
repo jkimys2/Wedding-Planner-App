@@ -31,14 +31,6 @@
                         <a class="nav-link" href="/profile"> Dashboard </a>
                     </li>
                     <li class="nav-item">
-                        {{#if logged_in}}
-                            <button class="no-button" id="logout">Logout</button>
-                            <!-- <a class="nav-link" href="/logout"> Logout </a> DONT work -->
-                        {{else}}
-                            <a class="nav-link" href="/login">Login </a>
-                        {{/if}}
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/hp2"> Test Home</a>
                     </li>
                     <li class="nav-item">
@@ -46,6 +38,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/login2"> Test Login </a>
+                    </li>
+                     <li class="nav-item">
+                        {{#if logged_in}}
+                            <button class="no-button" id="logout">Logout</button>
+                            <!-- <a class="nav-link" href="/logout"> Logout </a> DONT work -->
+                        {{else}}
+                            <a class="nav-link" href="/login">Login </a>
+                        {{/if}}
                     </li>
                 </ul>
             </div>
