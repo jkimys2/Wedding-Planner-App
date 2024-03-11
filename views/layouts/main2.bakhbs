@@ -15,20 +15,6 @@
 </head>
 
 <body>
-    <nav class="navbar bg-body-tertiary">
-<nav class="navBar2">
-  <a href="/">Home</a> |
-  <a href="/profile"> Dashboard </a> |
-    <a href="/hp2">Test Home</a> |
-  <a href="/profile2"> Test Dashboard</a> |
-  {{#if logged_in}}
-  <button class="no-button" id="logout">Logout</button>
-  {{else}}
-  <a href="/login"> Login</a> |
-  <a href="/login2"> Test Login </a>
-  {{/if}}
-</nav>  
-    </nav>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <h1 class="navbar-brand">Wedding Bells</h1>
@@ -44,7 +30,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/profile"> Dashboard </a>
                     </li>
-                    <li class="nav-item2">
+                    <li class="nav-item">
                         {{#if logged_in}}
                             <button class="no-button" id="logout">Logout</button>
                             <!-- <a class="nav-link" href="/logout"> Logout </a> DONT work -->
@@ -70,7 +56,7 @@
 </body>
 
 {{#if logged_in}}
-    <script src="./js/logout.js"></script>
+    <script src="/js/logout.js"></script>
 {{/if}}
 
 </html>
