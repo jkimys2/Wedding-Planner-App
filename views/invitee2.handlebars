@@ -1,73 +1,79 @@
 <!-- MJS 3.7 - Modified from MJS hw 14 - orig uri act 14-28 mp. --> 
-<!-- Show the user the current wedding, a form for a new invitee, and invitees. --> 
+<!-- Show the invitee a form for to modify current invitee, and list of all invitees. --> 
+<!-- As of 3.11 the invitee default name, email shows up, and you can click to load a different invitee --> 
+<!-- But none of the buttons work. I tried copying this files STRAIGHT from profile hbs, but it has 
+the same issue. The probleme seems to be the path begins with invitee. --> 
 <div class="row">
-  <div class="col-auto"> <!-- neither user.id nor user.id works below. -->
-    <h2>Welcome {{username}}  ID: {{id}} </h2>
-    <h2>Wedding Name {{wedding.event_title}} ID: {{wedding.id}} Date .... Time .... </h2>
-    <h2>Wedding Title via weddings[1] {{weddings.[1].event_title }} ID: {{wedding.id}}  </h2>
-    <h2>Guest Name via guest {{guest.first_name}} ID: {{guest.id}}  </h2>
+  <div class="col-auto mx-4"> <!-- neither user.id nor user.id works below. -->
+    <!-- <h2>Welcome INVITEE2 fILE {{username}}  ID: {{id}} </h2> -->
+    <h2> {{username}} your wedding for {{wedding.event_title}} is on {{wedding.date}} </h2>
+    <!-- ID: {{wedding.id}} Date .... Time .... </h2>
+    <h2>Guest Name via guest {{guest.first_name}} ID: {{guest.id}}  </h2> --> 
   </div>
 </div>
 
-
-
-<div class="row mt-4">
+<div class="row mt-4 mx-4">
   <div class="col-md-6">
-    <h3>Modify Invitee: {{guestID}} </h3>
-    <h3>Invitee 1: {{ invitees.[1].first_name }}</h3>
-    <h3>Current Invitee: {{guest.first_name}} {{! invitees.[guestID].first_name }}</h3>
+    <!-- <h3>Modify Invitee: {{guestID}} </h3> --> 
+    <h3>Modifying Invitee: {{guest.first_name}} {{guest.last_name}} {{! invitees.[guestID].first_name }}</h3>
 
-    <form class="form new-invitee-form" user-id="{{id}}" wedding-id="{{wedding.id}}">  <!-- data-id="{{post.id}}" -->
+    <form class="form mod-invitee-form" user-id="{{id}}" wedding-id="{{wedding.id}}">  <!-- data-id="{{post.id}}" -->
       <div class="form-group">
-        <label for="invitee-name">First Name:</label>
-        <input class="form-input" type="text" id="invitee-name" name="invitee-name" />
+        <label for="invitee-name">First Name:</label> <!-- nicely fills in name -->
+        <input class="form-input" type="text" id="invitee-name" name="invitee-name" value="{{guest.first_name}}" />
       </div>
       <div class="form-group">
         <label for="invitee-last">Last Name:</label>
-        <input class="form-input" type="text" id="invitee-last" name="invitee-last" />
-      </div>
+        <input class="form-input" type="text" id="invitee-last" name="invitee-last" value="{{guest.last_name}}" />
+      </div>>
       <div class="form-group">
         <label for="invitee-email">Email:</label> <!-- can use textarea instead of input --> 
-        <input class="form-input" id="invitee-email" name="invitee-email"></textarea>
+        <input class="form-input" type="text"  id="invitee-email" name="invitee-email" value="{{guest.email}}">
       </div>
       <div class="form-group">
-        <label for="invitee-attending">Attending:</label>
-        <input textarea class="form-input" id="invitee-attending" name="invitee-attending"></textarea>
+        <label for="invitee-attending">Attending:</label> <!-- also have textarea class="form-input" -->
+        <input type="radio" name="attending" value="null" checked="checked" /> Unknown
+        <input type="radio" name="attending" value="true" /> Yes
+        <input type="radio" name="attending" value="false" /> No
       </div>
       <div class="form-group">
-        <label for="invitee-plus-one">Email:</label>
-        <input class="form-input" id="invitee-plus-one" name="invitee-plus-one"></textarea>
+        <label for="invitee-plus-one">Plus a Date?:</label>
+        <input type="radio" name="invitee-plus-one" value="null" checked="checked" /> Unknown
+        <input type="radio" name="invitee-plus-one" value="true" /> Yes
+        <input type="radio" name="invitee-plus-one" value="false" /> No
       </div> 
       <div class="form-group">
-        <label for="invitee-food-choice">Email:</label>
-        <input class="form-input" id="nvitee-food-choice" name="invitee-food-choice"></textarea>
-      </div>  --> 
+        <label for="invitee-menu">Menu Selection:</label>
+        <input type="radio" name="invitee-menu" value="null" checked="checked" /> Unknown
+        <input type="radio" name="invitee-menu" value="Steak" /> Steak
+        <input type="radio" name="invitee-menu" value="Chicken" /> Chicken
+        <input type="radio" name="invitee-menu" value="Vegetarian" /> Vegetarian
+      </div>   
       <div class="form-group">
-        <button type="submit" class="btn btn-primary" >Create</button
+        <button type="submit" class="btn btn-primary" /> Modify (Under Construction) </button>
       </div> 
     </form>
-  </div>
+  </div> <!-- end div col-md-6 --> 
 
+  <div class="col-md-6 invitee-list">  <!-- must always have so we cant attach handler -->
   {{#if invitees.length}}
-  <div class="col-md-6 invitee-list">
     <h3>Current Invitees:</h3>
-
     {{#each invitees as |invitee|}}
     <div class="row mb-2">
-      <div class="col-md-8">
-        <h4><a href="/invitee/{{invitee.id}}">{{invitee.first_name}} {{invitee.last_name}}</a></h4>
+      <div class="col-md-6">
+        <h4> Name: {{invitee.first_name}} {{invitee.last_name}} </h4>
       </div>
-      <div class="col-md-4">
-        <h4><a href="/invitee/{{invitee.id}}">Edit</a></h4>
-        <button class="btn btn-sm btn-info" data-id="{{invitee.id}}">Edit</button>
+      <div class="col-md-3">
+        <h4><a href="/invitee2/{{invitee.id}}">Edit</a></h4>  <!-- miraculously this works. --> 
+        <!-- <button class="btn btn-sm btn-info" edit-id="{{invitee.id}}">Edit</button> -->
       </div>
-      <div class="col-md-4">
-        <button class="btn btn-sm btn-danger" data-id="{{invitee.id}}">DELETE</button>
-      </div>
+      <!-- <div class="col-md-2">
+        <button class="btn btn-sm btn-danger" delete-id="{{invitee.id}}">DELETE</button> 
+      </div> --> 
     </div>
     {{/each}}
-  </div>
   {{/if}}
-</div>
+  </div> <!-- end invitee-list div -->
+</div> <!-- end div class row --> 
 
 <script src="./js/invitee2.js"></script>

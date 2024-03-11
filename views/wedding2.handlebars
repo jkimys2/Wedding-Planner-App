@@ -1,17 +1,17 @@
-<!-- MJS 3.4.24 - Modified from uri act 14-28 mp. --> 
-<!-- Show the user a form for a new post, along withcurrent posts at the bottom. --> 
+<!-- MJS 3.4.24 - Modified from uri act 14-28 mp. -->
+<!-- Show the user a form for a new post, along withcurrent posts at the bottom. -->
 <div class="row">
   <div class="col-auto">
-    <h4>Welcome {{username}}! {{id}} </h4> <!-- user.id no good --> 
+    <h4 class="welcomemesg">Welcome {{username}}! to Wedding Bells! Use this page to adjust plans</h4>
+    <!-- user.id no good -->
   </div>
 </div>
-
 <div class="row mt-4">
   <div class="col-md-6">
     {{#if weddings.length}}
-        <h3>Current Wedding: {{ weddings.[1].event_title }}</h3>
+    <h3>Current Wedding: {{ weddings.[1].event_title }}</h3>
     {{else}}
-        <h3>Create a New Wedding:</h3>
+    <h3>Create a New Wedding:</h3>
     {{/if}}
     <form class="form new-wedding-form" user-id="{{id}}" submit-verb="POST">
       <div class="form-group">
@@ -28,15 +28,31 @@
       </div>
 
       <div class="form-group"></div>
-      {{#if weddings.length}} 
-      <!-- js cant acces submit-verb here, wether inside if or not. but can in form element. Arghhh --> 
-        <button type="submit" class="btn btn-primary" submit-verbxx="PUT"> Update </button>
+      {{#if weddings.length}}
+      <!-- js cant acces submit-verb here, wether inside if or not. but can in form element. Arghhh -->
+      <button type="submit" class="btn btn-primary" submit-verbxx="PUT"> Update </button>
       {{else}}
-        <button type="submit" class="btn btn-primary" submit-verbxx="POST"> Create </button>
+      <button type="submit" class="btn btn-primary" submit-verbxx="POST"> Create </button>
       {{/if}}
 
+  </div>
+  </form>
+  <div class="card-group">
+    <div class="card">
+      <img src="/images/cakepics.jpg" class="card-img-top" alt="married couple kissing">
+      <div class="card-body">
       </div>
-    </form>
+    </div>
+    <div class="card">
+      <img src="/images/ringonplate.jpg" class="card-img-top" alt="ring on a plate">
+      <div class="card-body">
+      </div>
+    </div>
+    <div class="card">
+      <img src="/images/atalter.jpg" class="card-img-top" alt="couple at alter">
+      <div class="card-body">
+      </div>
+    </div>
   </div>
 
   {{#if weddings.length}}
@@ -55,10 +71,10 @@
   {{/if}}
 
   {{#if weddings.length}}
-     <!-- better to hide button - cant assign to it in .js file. --> 
-    <button class="btn btn-sm btn-danger">DELETE</button>
-  {{else}}  <!-- need btn for .js file for attaching on-click routine. --> 
-    <button class="btn btn-sm btn-danger" hidden="hidden">DELETE</button>
+  <!-- better to hide button - cant assign to it in .js file. -->
+  <button class="btn btn-sm btn-danger">DELETE</button>
+  {{else}} <!-- need btn for .js file for attaching on-click routine. -->
+  <button class="btn btn-sm btn-danger" hidden="hidden">DELETE</button>
   {{/if}}
 
 
