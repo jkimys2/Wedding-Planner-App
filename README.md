@@ -45,4 +45,4 @@ There was no starter code provided for this challenge! This application was buil
 ## Links
 
 [GitHub Repository](https://github.com/jkimys2/Wedding-Planner-App) <br>
-[Deployed Heroku Application](https://thawing-scrubland-11402-452c05f82ff2.herokuapp.com/login)
+[Deployed Heroku Application](https://thawing-scrubland-11402-452c05f82ff2.herokuapp.com/)
