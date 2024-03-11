@@ -14,8 +14,13 @@
 
 .col-auto {
     padding: 15px;
-    background-color:  rgb(43, 42, 44);
-    width: 100%;
+    background-color: rgb(94, 94, 94);
+    width: 90%;
+    border-radius: 70px;
+    margin: 5px;
+    padding: 15px;
+    margin-left: 20px;
+    position: relative; left: 3%;
 }
 
 #welcome {
@@ -35,4 +40,45 @@
 #invname {
     font-weight: 500;
     font-size: 20px;
+}
+
+.form-input {
+    border-radius: 5px;
+    position: relative;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(43, 42, 44);
+    width: 200%;
+    margin: 5px 0;
+    padding: 8px;
+}
+
+.mypurtty {
+    border-radius: 5px;
+    position: relative;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(43, 42, 44);
+    width: 100%;
+    margin: 5px 0;
+    padding: 8px;
+}
+
+.myimg {
+    max-width: 50%;
+    max-height: 70%;
+    position: absolute; left: 50%; top: 16%;
+}
+
+.welcomemesg {
+    color: white;
+    background-color: rgb(94, 94, 94);
+}
+
+.btn {
+    background-color: rgb(203, 203, 203);
+    border: 0;
+    color: black;
 }

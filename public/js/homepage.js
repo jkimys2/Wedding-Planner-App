@@ -1,8 +1,8 @@
-// const myCollapseEl = document.querySelector('#myCollapse')
+ const myCollapseEl = document.querySelector('#myCollapse')
 
-// myCollapseEl.addEventListener('shown.bs.collapse', event => {
-//   // Action to execute once the collapsible area is expanded
-// })
+ myCollapseEl.addEventListener('shown.bs.collapse', event => {
+   // Action to execute once the collapsible area is expanded
+ })
 
 const myCarouselEl = document.querySelector('#myCarousel');
 const carousel = bootstrap.Carousel.getInstance(myCarouselEl); // Retrieve a Carousel instance
