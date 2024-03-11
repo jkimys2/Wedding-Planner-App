@@ -1,47 +1,53 @@
-<!-- MJS 3.7 - Modified from MJS hw 14 - orig uri act 14-28 mp. --> 
-<!-- Show the user the current wedding, a form for a new invitee, and invitees. --> 
+<!-- MJS 3.7 - Modified from MJS hw 14 - orig uri act 14-28 mp. -->
+<!-- Show the user the current wedding, a form for a new invitee, and invitees. -->
+
 <div class="row">
-  <div class="col-auto"> <!-- neither user.id nor user.id works below. -->
-    <h2>Welcome, {{username}}  ID: {{id}} ... add Wedding info likely above the new invitee form!</h2>
-    <h2>Wedding Name {{wedding.event_title}} ID: {{wedding.id}} Date .... Time .... </h2>
+  <div class="col-auto">
+    <h2 id="welcome">Welcome {{username}} </h2>
+    <h2 class="eventTitle"> Your wedding {{wedding.event_title}} is coming up on {{wedding.date}} </h2>
   </div>
 </div>
 
 <div class="row mt-4">
   <div class="col-md-6">
-    <h3>Create a New Invitee:</h3>
-    <form class="form new-invitee-form" user-id="{{id}}" wedding-id="{{wedding.id}}">  <!-- data-id="{{post.id}}" -->
+    <h3>Create a New Invitee </h3>
+    <form class="form new-guest-form" user-id="{{id}}" wedding-id="{{wedding.id}}" >
       <div class="form-group">
-        <label for="invitee-name">First Name:</label>
-        <input class="form-input" type="text" id="invitee-name" name="invitee-name" />
+        <label for="guest-first" id="guest-first-label"> First Name:</label>
+        <input class="form-input" type="text" id="guest-first" name="guest-first" />
       </div>
-      <div class="form-group">
-        <label for="invitee-last">Last Name:</label>
-        <input class="form-input" type="text" id="invitee-last" name="invitee-last" />
+      <div class="mb-3">
+        <!-- There is no special invite note in the User model => no way to store this info! --> 
+        <!-- <label for="exampleFormControlTextarea1" class="form-label">Special invite note</label> --> 
+        <label for="guest-last" class="form-label"> Last Name </label>
+        <!-- textArea would work, but this is not a "note", but a password --> 
+        <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> --> 
+        <input class="form-input" type="text" id="guest-last" name="guest-last" />
       </div>
-      <div class="form-group">
-        <label for="invitee-email">Email:</label>
-        <textarea class="form-input" id="invitee-email" name="invitee-email"></textarea>
+      <div class="mb-3">
+        <!-- Label should have text between tags. id should indicate class-field  --> 
+        <!-- <label for="exampleFormControlInput1" class="form-label"></label>  --> 
+        <label for="guest-email" class="form-label"> Email </label>
+        <input type="email" class="form-control" id="guest-email" name="guest-email" placeholder="name@provider.com">
       </div>
+      <!-- This needs to be type="submit" --> 
+      <!-- <div class="sendInvitebtn">Create user and Send Invite</div> --> 
       <div class="form-group">
-        <button type="submit" class="btn btn-primary" >Create</button>
+        <button type="submit" class="btn btn-primary">Create and Send QR Code </button>
       </div>
     </form>
-  </div>
-
+  </div> <!-- end column div for form -->
+  
   {{#if invitees.length}}
-  <div class="col-md-6 invitee-list">
+  <div class="col-md-6 guest-list">
     <h3>Current Invitees:</h3>
 
     {{#each invitees as |invitee|}}
     <div class="row mb-2">
-      <div class="col-md-6">
-        <h4>ID: {{invitee.id}} <a href="/invitee2/{{invitee.id}}">{{invitee.first_name}} {{invitee.last_name}}</a></h4>
+      <div class="col-md-8">
+        <h4><a href="/project/{{invitee.id}}">{{invitee.first_name}}</a></h4>
       </div>
-      <div class="col-md-3">
-        <button class="btn btn-sm" data-id="{{invitee.id}}">EDIT</button>
-      </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <button class="btn btn-sm btn-danger" data-id="{{invitee.id}}">DELETE</button>
       </div>
     </div>
@@ -50,4 +56,37 @@
   {{/if}}
 </div>
 
+<!--- images and text go at the bottom of the screen. --> 
+<div class="card-group">
+  <div class="card">
+    <img src="/images/recentlyMarriedCoupleKissing.jpg" class="card-img-top" alt="married couple kissing">
+    <div class="card-body">
+      <h5 class="card-title">Venues</h5>
+      <p class="card-text">Choose from amazing all over the country where we can help you make your dreams come true.
+
+        Could be in the beautiful ocean front venues in South Florida, on the incredible island of Hawaii or in the breathtaking snow capped mountains of Colorado!
+      </p>
+      <p class="card-text"><small class="text-body-secondary">Florida, Hawaii, Colorado</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="/images/jordansRings.jpg" class="card-img-top" alt="Picture of wedding rings">
+    <div class="card-body">
+      <h5 class="card-title">Photographers</h5>
+      <p class="card-text">We will help you find only the best of professional photographers!
+
+        They will be who you know you can trust that way you can focus more on enjoying your beautiful day! 
+      </p>
+      <p class="card-text"><small class="text-body-secondary">Browse professionals near you now</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="/images/qrcode.png" class="card-img-top" alt="qr code to invite guests">
+    <div class="card-body">
+      <h5 class="card-title">Invite guests using our special QR Code technology</h5>
+      <p class="card-text">Perform this task and invite your friends and family to the wedding!</p>
+      <p class="card-text"><small class="text-body-secondary"></small>Special invite for a special occasion</p>
+    </div>
+  </div>
+</div>
 <script src="./js/profile2.js"></script>

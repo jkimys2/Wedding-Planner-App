@@ -22,6 +22,7 @@ router.get('/', async (req, res) => {
     const weddings = wedData.map((wedding) => wedding.get({ plain: true }));
 
     // Pass serialized data and session flag into template
+    console.log("Route / rendering homepage ....... ");
     res.render('homepage', { 
       weddings, 
       logged_in: req.session.logged_in 
@@ -31,7 +32,7 @@ router.get('/', async (req, res) => {
   }
 });  // end get / 
 
-// - /hp2 (homepage2) get returns all users and associated weddings.
+// Route /hp2 (homepage2) get returns all users and associated weddings.
 router.get('/hp2', async (req, res) => {
   try {
     console.log("Route /hp2 in controllers/homeroutes.js beginning ... ");
@@ -49,6 +50,7 @@ router.get('/hp2', async (req, res) => {
     const weddings = wedData.map((wedding) => wedding.get({ plain: true }));
 
     // Pass serialized data and session flag into template
+    console.log("Route /hp2 rendering homepage2 ....... ");
     res.render('homepage2', { 
       weddings, 
       logged_in: req.session.logged_in 
@@ -87,7 +89,7 @@ router.get('/invitee/:id', async (req, res) => {
       return; // un-reachable, but just in case
     }
   
-    console.log("Route ", routeName, " got wedding data ", wed.dataValues); 
+    console.log("Route ", routeName, " got wedding data "); 
 
       // Now get wedding-invitee data  
         const wedTitle = wed.dataValues.event_title;
@@ -136,7 +138,7 @@ router.get('/invitee2/:id', async (req, res) => {
       return; // un-reachable, but just in case
     }
   
-    console.log("Route ", routeName, " got wedding data ", wed.dataValues); 
+    console.log("Route ", routeName, " got wedding data "); 
 
       // Now get wedding-invitee data 
         const wedTitle = wed.dataValues.event_title;
@@ -188,7 +190,7 @@ router.get('/profile2', withAuth2, async (req, res) => {
        return; // un-reachable, but just in case
     }
   
-    console.log("Route ", routeName, " got wedding data ", wed.dataValues); 
+    console.log("Route ", routeName, " got wedding data "); 
 
       // Now get wedding-invitee data 
         const wedTitle = wed.dataValues.event_title;
