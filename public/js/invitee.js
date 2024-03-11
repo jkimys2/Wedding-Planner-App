@@ -1,21 +1,40 @@
-// MJS 3.10.24 - Wedding Profile. Be sure not to use profile2 or invitee2 stuff. 
+// MJS 3.9.24 - Invitee editing screen.  Create, update and deletes guests. 
+// Currently selected guest on left. List of guests on rights. 
+
+// MSJ 3.9.24 - Create button - create a new guest. 
 const newFormHandler = async (event) => {
   event.preventDefault();
-  console.log("Starting profile - invitee newFormHandler");
+  console.log("Starting invitee newFormHandler");
 
   /* I'm sticking with the exact same names as the model to be safe here. */
-  const first_name = document.querySelector('#guest-first').value.trim();
-  const last_name = document.querySelector('#guest-last').value.trim();
-  const email = document.querySelector('#guest-email').value.trim();
-  // Unincluded values: accepted, plus_one, food_choice will be null  // model as of 3.7.24 allows null => unknown
+  const first_name = document.querySelector('#invitee-name').value.trim();
+  const last_name = document.querySelector('#invitee-last').value.trim();
+  const email = document.querySelector('#invitee-email').value.trim();
+  // Un-included values: accepted, plus_one, food_choice will be null  // model as of 3.7.24 allows null => unknown
   if (!event.target.hasAttribute('wedding-id')) { // must be in submit button. This is target
     console.log("Profile new invitee FormHandler. Couldnt find wedding-id in DOM");
     return; 
   }  
   const wedding_id = event.target.getAttribute('wedding-id'); 
-  console.log("Wedding id is ", wedding_id);
 
-  if (first_name && last_name && email) {
+  if (!event.target.hasAttribute('user-id')) { 
+    console.log("Profile new invitee FormHandler. Couldnt find user-id in DOM");
+    return; 
+  }  
+  const user_id = event.target.getAttribute('user-id'); 
+  
+  if (!event.target.hasAttribute('submit-verb')) { 
+    console.log("Invitee new form handler. Couldnt find submit-verb (POST or PUT) in wedding hbs file DOM");
+    return; 
+  }  
+  const submitVerb = event.target.getAttribute('submit-verb'); 
+
+  if (!(first_name && last_name && email)) {
+    console.log("Create Modify invitee: ", submitVerb, "Blank Field: Name ", first_name, last_name, " email ", email );
+    alert("First name, last name and email cannot be blank.");
+    return;
+  }
+
     console.log("Invitee form handler. CREATING new GUEST ", first_name, last_name, email); 
     const jsonData = {"first_name": first_name, "last_name": last_name, "email": email};
     jsonData.wedding_id = wedding_id;
@@ -35,19 +54,17 @@ const newFormHandler = async (event) => {
     } else {
       alert('FAILED to create guest ' + first_name);
     }
-  } else {
-    alert("First name, last name and email cannot be blank.");
-  }
-};  // newFormHandler - works again 2:24 PM dop
+}
 
 const delButtonHandler = async (event) => {
-    console.log("Delete guest ButtonHandler beginning ... ");
+    console.log("Profile delete guest lButtonHandler beginning ... ");
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');
-        console.log("Profile delButtonHandler found data-id of ", id);
+        console.log("Profile delete guest ButtonHandler found data-id of ", id);
         const response = await fetch(`/api/invitees/${id}`, {
             method: 'DELETE',
         });
+
 
         if (response.ok) {
             document.location.replace('/profile');
@@ -58,9 +75,9 @@ const delButtonHandler = async (event) => {
 };
 
 document
-  .querySelector('.new-guest-form')
+  .querySelector('.new-invitee-form')
   .addEventListener('submit', newFormHandler);
 
 document
-  .querySelector('.guest-list')
+  .querySelector('.invitee-list')
   .addEventListener('click', delButtonHandler);

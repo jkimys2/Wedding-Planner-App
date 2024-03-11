@@ -21,10 +21,10 @@ router.post("/", async (req, res) => {
 
 // if a POST request is made to /api/users/login, the function checks to see if the user information matches the information in the database and logs the user in. If correct, the user ID and logged-in state are saved to the session within the request object.
 router.post("/login", async (req, res) => {
-  console.log("is this runnning?");
+  console.log("api/users/login POST route starting......");
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
-console.log("user data", userData);
+    console.log("api/user/login got userData .... ");
     if (!userData) {
       res
         .status(400)
@@ -33,7 +33,7 @@ console.log("user data", userData);
     }
 
     const validPassword = await userData.checkPassword(req.body.password);
-console.log("isPassword valid?", validPassword);
+    console.log("api/users/login - validPassword = ", validPassword);
     if (!validPassword) {
       res
         .status(400)
