@@ -51,8 +51,10 @@ const signupFormHandler = async (event) => {
 
     if (response.ok) {
       document.location.replace('/profile');
-    } else {
-      alert("Could not create new user. " + response.statusText);
+    } else {  
+      // Add note about password length. This could also be handled by testing the length in js, but I like this
+      // as it helps to show data validation in the model is now working.  MJS DHour-2!
+      alert("Could not create new user. Make sure your password is 8 characters min! " + response.statusText);
     }
   }
 };

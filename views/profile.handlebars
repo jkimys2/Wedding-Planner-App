@@ -11,25 +11,27 @@
 
 <div class="row mt-4">
   <div class="col-md-6">
-    <h3>Create a New Invitee </h3>
+    <h3>Create a New Guest </h3>
     <form class="form new-guest-form" user-id="{{id}}" wedding-id="{{wedding.id}}" >
       <div class="form-group">
         <label for="guest-first" id="guest-first-label"> First Name:</label>
-        <input class="form-input" type="text" id="guest-first" name="guest-first" />
+        <input class="form-input" type="text" id="guest-first" name="guest-first" style="width:300px" />
       </div>
-      <div class="mb-3">
+      <div class="mb-3 form-group">
         <!-- There is no special invite note in the User model => no way to store this info! --> 
         <!-- <label for="exampleFormControlTextarea1" class="form-label">Special invite note</label> --> 
-        <label for="guest-last" class="form-label"> Last Name </label>
+        <label for="guest-last" class="form-label"  > Last Name </label>
         <!-- textArea would work, but this is not a "note", but a password --> 
         <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> --> 
-        <input class="form-input" type="text" id="guest-last" name="guest-last" />
+        <!-- size works if no class, style=width:value works even with class. Last minute poor formatting fix. --> 
+        <input class="form-input" type="text" id="guest-last" name="guest-last" style="width:300px" />
+        <!-- <input class="form-input" type="text" id="guest-last" name="guest-last" size="10" /> --> 
       </div>
-      <div class="mb-3">
+      <div class="mb-3 form-group">
         <!-- Label should have text between tags. id should indicate class-field  --> 
         <!-- <label for="exampleFormControlInput1" class="form-label"></label>  --> 
-        <label for="guest-email" class="form-label"> Email </label>
-        <input type="email" class="form-control" id="guest-email" name="guest-email" placeholder="name@provider.com">
+        <label for="guest-email" class="form-label"> Email    </label>
+        <input type="email" class="form-input" id="guest-email" name="guest-email" style="width:300px" placeholder="name@provider.com">
       </div>
       <!-- This needs to be type="submit" --> 
       <!-- <div class="sendInvitebtn">Create user and Send Invite</div> --> 
@@ -40,7 +42,7 @@
   </div> <!-- end column div for form -->
   
   {{#if invitees.length}}
-  <div class="col-md-6 guest-list">
+  <div class="col-md-5 guest-list">
     <h3>Current Invitees:</h3>
 
     {{#each invitees as |invitee|}}
