@@ -34,7 +34,9 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-      //   length: [8],
+      //   length: [8], 
+      // https://sequelize.org/docs/v6/core-concepts/validations-and-constraints/
+      len: [8,16],   // only allow values with length between 8 and 16
       },
     },
   },
